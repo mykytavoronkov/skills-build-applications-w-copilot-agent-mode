@@ -1,7 +1,12 @@
 import { useApiList } from '../hooks/useApiList';
+import { CODESPACE_NAME } from '../config/api';
+
+const API_URL = CODESPACE_NAME
+  ? `https://${CODESPACE_NAME}-8000.app.github.dev/api/leaderboard/`
+  : 'http://localhost:8000/api/leaderboard/';
 
 function Leaderboard() {
-  const { items: entries, loading, error } = useApiList('leaderboard');
+  const { items: entries, loading, error } = useApiList(API_URL);
 
   if (loading) return <p className="container mt-4">Loading leaderboard...</p>;
   if (error) return <p className="container mt-4 text-danger">Error loading leaderboard: {error}</p>;

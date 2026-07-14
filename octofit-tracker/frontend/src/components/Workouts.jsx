@@ -1,7 +1,12 @@
 import { useApiList } from '../hooks/useApiList';
+import { CODESPACE_NAME } from '../config/api';
+
+const API_URL = CODESPACE_NAME
+  ? `https://${CODESPACE_NAME}-8000.app.github.dev/api/workouts/`
+  : 'http://localhost:8000/api/workouts/';
 
 function Workouts() {
-  const { items: workouts, loading, error } = useApiList('workouts');
+  const { items: workouts, loading, error } = useApiList(API_URL);
 
   if (loading) return <p className="container mt-4">Loading workouts...</p>;
   if (error) return <p className="container mt-4 text-danger">Error loading workouts: {error}</p>;

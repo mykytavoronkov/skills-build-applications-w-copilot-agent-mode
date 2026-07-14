@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { apiUrl, extractItems } from '../config/api';
+import { extractItems } from '../config/api';
 
-export function useApiList(resource) {
+export function useApiList(url) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,7 +10,7 @@ export function useApiList(resource) {
     let isMounted = true;
     setLoading(true);
 
-    fetch(apiUrl(resource))
+    fetch(url)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Request failed with status ${res.status}`);
@@ -37,7 +37,8 @@ export function useApiList(resource) {
     return () => {
       isMounted = false;
     };
-  }, [resource]);
+  }, [url]);
 
   return { items, loading, error };
 }
+

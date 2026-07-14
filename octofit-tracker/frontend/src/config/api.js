@@ -7,15 +7,7 @@
 //
 // When VITE_CODESPACE_NAME is unset, the app falls back to localhost so we
 // never build an invalid "https://undefined-8000.app.github.dev" URL.
-const codespaceName = import.meta.env.VITE_CODESPACE_NAME;
-
-export const API_BASE_URL = codespaceName
-  ? `https://${codespaceName}-8000.app.github.dev/api`
-  : 'http://localhost:8000/api';
-
-export function apiUrl(resource) {
-  return `${API_BASE_URL}/${resource}/`;
-}
+export const CODESPACE_NAME = import.meta.env.VITE_CODESPACE_NAME;
 
 // Normalizes API responses that may be returned as a plain array or as a
 // paginated object shape (e.g. { results: [...] }).
@@ -24,3 +16,4 @@ export function extractItems(data) {
   if (data && Array.isArray(data.results)) return data.results;
   return [];
 }
+
